@@ -1,0 +1,39 @@
+
+Use mode:
+
+1. Enter into to the django-globalrequest directory and execute the following command:
+$ python setup.py install
+
+2. Inside your django project, add the line:
+    'jaa.django.globalrequest.middleware.GlobalRequestMiddleware',
+to your MIDDLEWARE_CLASSES tuple in settings.py.
+
+Example:
+        MIDDLEWARE_CLASSES = (
+            'django.middleware.common.CommonMiddleware',
+            ...
+            'jaa.django.globalrequest.middleware.GlobalRequestMiddleware',
+        }
+
+3. Then, in your python code you can do the following:
+    
+from jaa.globalrequest import get_request
+...
+request = get_request()
+user = request.user
+
+Example:
+
+-----models.py----
+from django.db import models
+from django.contrib.auth.models import User
+from jaa.django.globalrequest import get_request
+
+class Comment(models.Model):
+    comment = models.TextField()
+    user = models.ForeignKey(User)
+    def __init__(self, *args, **kwargs):
+        super(Comment, self).__init__(*args, **kwargs)
+        self.user = get_request().user
+
+-----models.py----
