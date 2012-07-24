@@ -5,7 +5,7 @@ read = lambda fname: open(os.path.join(os.path.dirname(__file__), fname)).read()
 
 setup(
     name = "django-gobalrequest",
-    version = "0.0.8",
+    version = "0.2.0",
     author = "Jonatan Alexis Anauati",
     author_email = "barakawins@gmail.com",
     description = ("A django middleware and a helper to expose globally the "

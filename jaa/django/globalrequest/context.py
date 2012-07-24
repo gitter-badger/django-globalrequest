@@ -1,13 +1,14 @@
 # -*- coding: utf-8 -*-
 
-import threading
 from django.conf import settings
+from django.contrib.auth.models import User
 
 try:
     from django.contrib import sites
 except:
     sites = None
 
+import threading
 
 if not 'context' in locals():
     context = threading.local()
@@ -32,6 +33,12 @@ def get_current_user():
         return getattr(_get_context(),'user', get_request().user)
     except:
         return None
+
+def get_current_user_model():
+    user = get_current_user()
+    if not isinstance(user, User):
+        user = None
+    return user
 
 def get_current_site():
     try:
